@@ -4,6 +4,8 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
+import com.photoshare.tools.WeiboTools;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.util.Date;
@@ -42,7 +44,7 @@ public class PhotoShareService extends Service implements Runnable{
            }
            catch(Exception e)
            {
-
+                e.printStackTrace();
            }
            File file=new File(path);
 
@@ -50,7 +52,7 @@ public class PhotoShareService extends Service implements Runnable{
                @Override
                public boolean accept(File file) {
 
-                   if(file.lastModified()>maxTime)
+                   if(file.lastModified() > maxTime)
                    {
                        return true;
                    }
@@ -66,7 +68,7 @@ public class PhotoShareService extends Service implements Runnable{
                  try
                  {
                      maxTime=files[0].lastModified();
-
+                     WeiboTools.uploadImage(files[0].getAbsolutePath());
                  }
                  catch(Exception e)
                  {
